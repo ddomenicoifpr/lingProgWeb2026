@@ -11,7 +11,20 @@ $conexao = Conexao::getConexao();
 
 //Salvar o livro
 if(isset($_POST['titulo'])) {
-    echo "Já clicou no gravar!";
+    //1- Receber os dados do formulário
+    $titulo = $_POST['titulo'];
+    $genero = $_POST['genero'];
+    $autor  = $_POST['autor'];
+    $qtdPag = $_POST['paginas'];
+
+    //2- Inserir o livro no banco de dados
+    $sql = "INSERT INTO livros (titulo, genero, autor, qtd_paginas)
+            VALUES (?, ?, ?, ?)";
+    $stm = $conexao->prepare($sql);
+    $stm->execute([$titulo, $genero, $autor , $qtdPag]);
+
+    //3- Redirecionar para a página de listagem
+    header("location: livros.php");
 }
 
 //Listagem dos livros
@@ -42,7 +55,9 @@ $livros = $stm->fetchAll();
             <th>ID</th>
             <th>Título</th>
             <th>Gênero</th>
+            <th>Autor</th>
             <th>Páginas</th>
+            <th></th>
         </tr> 
 
         <!-- Dados -->
@@ -62,7 +77,13 @@ $livros = $stm->fetchAll();
                             echo "Outro";                        
                     ?>
                 </td>
+                <td><?= $l["autor"] ?></td>
                 <td><?= $l["qtd_paginas"] ?></td>
+                <td>
+                    <a href="livros_excluir.php?id=<?= $l['id'] ?>"
+                       onclick="if(! confirm('Confirma a exclusão?')) return false;"
+                        >Excluir</a>
+                </td>
             </tr>
         
         <?php endforeach; ?>
@@ -85,6 +106,11 @@ $livros = $stm->fetchAll();
             <option value="R">Romance</option>
             <option value="O">Outro</option>
         </select>
+
+        <br><br>
+
+        <input type="text" placeholder="Informe o autor"
+            name="autor">
 
         <br><br>
 
