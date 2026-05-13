@@ -12,10 +12,13 @@ $conexao = Conexao::getConexao();
 //Salvar o livro
 if(isset($_POST['titulo'])) {
     //1- Receber os dados do formulário
-    $titulo = $_POST['titulo'];
-    $genero = $_POST['genero'];
-    $autor  = $_POST['autor'];
-    $qtdPag = $_POST['paginas'];
+    $titulo = trim($_POST['titulo']) ? trim($_POST['titulo']) : null;
+    $genero = trim($_POST['genero']) ? trim($_POST['genero']) : null; 
+    $autor = trim($_POST['autor']) ? trim($_POST['autor']) : null;
+    $qtdPag = is_numeric($_POST['paginas']) ? $_POST['paginas'] : null;
+
+    //1.1 - Validar os dados
+
 
     //2- Inserir o livro no banco de dados
     $sql = "INSERT INTO livros (titulo, genero, autor, qtd_paginas)
@@ -92,14 +95,15 @@ $livros = $stm->fetchAll();
 
     <h3>Formulário</h3>
 
-    <form action="" method="POST">
+    <!-- form action="" method="POST" onsubmit="return validarForm();" -->
+    <form action="" method="POST" >
 
         <input type="text" placeholder="Informe o título"
-            name="titulo">
+            name="titulo" id="titulo">
 
         <br><br>
 
-        <select name="genero">
+        <select name="genero" id="genero">
             <option value="">---Selecione o gênero---</option>
             <option value="D">Drama</option>
             <option value="F">Ficção</option>
@@ -110,11 +114,11 @@ $livros = $stm->fetchAll();
         <br><br>
 
         <input type="text" placeholder="Informe o autor"
-            name="autor">
+            name="autor" id="autor">
 
         <br><br>
 
-        <input type="number" name="paginas" 
+        <input type="number" name="paginas" id="qtdPag"
             placeholder="Informe o número de páginas">
 
         <br><br>
@@ -122,6 +126,12 @@ $livros = $stm->fetchAll();
         <button>Gravar</button>
 
     </form>
+
+    <div id="msgErro" style="color: red; display: none;">
+        Exemplo de erro!
+    </div>
+
+    <script src="validacao.js"></script>
     
 </body>
 </html>
