@@ -9,6 +9,13 @@ require_once("util/Conexao.php");
 $conexao = Conexao::getConexao();
 //print_r($conexao);
 
+$msgErro = "";
+
+$titulo = "";
+$genero = "";
+$autor = "";
+$qtdPag = "";
+
 //Salvar o livro
 if(isset($_POST['titulo'])) {
     //1- Receber os dados do formulário
@@ -18,16 +25,46 @@ if(isset($_POST['titulo'])) {
     $qtdPag = is_numeric($_POST['paginas']) ? $_POST['paginas'] : null;
 
     //1.1 - Validar os dados
+    $msgs = array();
+    if(! $titulo)
+        array_push($msgs, "Informe o título!");
+    else if(strlen($titulo) < 3 || strlen($titulo) > 50)
+        array_push($msgs, "O título deve ter entre 3 e 50 caracteres!");
+    else {
+        //Validação de título repetido
+        $sql = "SELECT id FROM livros WHERE titulo = ?";
+        $stm = $conexao->prepare($sql);
+        $stm->execute([$titulo]);
+        $retorno = $stm->fetchAll();
 
+        if(count($retorno) > 0) 
+            array_push($msgs, "Este título já foi cadastrado!");
+    }
 
-    //2- Inserir o livro no banco de dados
-    $sql = "INSERT INTO livros (titulo, genero, autor, qtd_paginas)
-            VALUES (?, ?, ?, ?)";
-    $stm = $conexao->prepare($sql);
-    $stm->execute([$titulo, $genero, $autor , $qtdPag]);
+    if(! $genero)
+        array_push($msgs, "Informe o gênero!");
 
-    //3- Redirecionar para a página de listagem
-    header("location: livros.php");
+    if(! $autor)
+        array_push($msgs, "Informe o autor!");
+
+    if($qtdPag == null || $qtdPag == "")
+        array_push($msgs, "Informe o número de páginas!");
+    else if($qtdPag <= 0)
+        array_push($msgs, "O número de páginas deve ser maior que 0!");
+
+    if(empty($msgs)) {
+        //2- Inserir o livro no banco de dados
+        $sql = "INSERT INTO livros (titulo, genero, autor, qtd_paginas)
+                VALUES (?, ?, ?, ?)";
+        $stm = $conexao->prepare($sql);
+        $stm->execute([$titulo, $genero, $autor , $qtdPag]);
+
+        //3- Redirecionar para a página de listagem
+        header("location: livros.php");
+    } else {
+        //Exibir as mensagens de erro
+        $msgErro = implode("<br>", $msgs);        
+    }
 }
 
 //Listagem dos livros
@@ -99,27 +136,34 @@ $livros = $stm->fetchAll();
     <form action="" method="POST" >
 
         <input type="text" placeholder="Informe o título"
-            name="titulo" id="titulo">
+            name="titulo" id="titulo" 
+            value="<?= $titulo ?>">
 
         <br><br>
 
         <select name="genero" id="genero">
             <option value="">---Selecione o gênero---</option>
-            <option value="D">Drama</option>
-            <option value="F">Ficção</option>
-            <option value="R">Romance</option>
-            <option value="O">Outro</option>
+            <option value="D" <?= $genero == "D" ? "selected" : "" ?> >
+                Drama</option>
+            <option value="F" <?= $genero == "F" ? "selected" : "" ?> >
+                Ficção</option>
+            <option value="R" <?= $genero == "R" ? "selected" : "" ?> >
+                Romance</option>
+            <option value="O" <?= $genero == "O" ? "selected" : "" ?> >
+                Outro</option>
         </select>
 
         <br><br>
 
         <input type="text" placeholder="Informe o autor"
-            name="autor" id="autor">
+            name="autor" id="autor" 
+            value="<?= $autor ?>">
 
         <br><br>
 
         <input type="number" name="paginas" id="qtdPag"
-            placeholder="Informe o número de páginas">
+            placeholder="Informe o número de páginas"
+            value="<?= $qtdPag ?>">
 
         <br><br>
 
@@ -129,6 +173,10 @@ $livros = $stm->fetchAll();
 
     <div id="msgErro" style="color: red; display: none;">
         Exemplo de erro!
+    </div>
+
+    <div style="color: red;">
+        <?= $msgErro ?>
     </div>
 
     <script src="validacao.js"></script>
