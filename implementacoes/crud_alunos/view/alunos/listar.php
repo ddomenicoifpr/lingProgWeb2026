@@ -1,20 +1,50 @@
 <?php
+//Teste da conexão com o banco de dados
+//require_once(__DIR__ . "/../../util/Connection.php");
+//$conn = Connection::getConnection();
+//print_r($conn);
 
-require_once(__DIR__ . "/../../util/Connection.php");
+require_once(__DIR__ . "/../../controller/AlunoController.php");
 
+//Buscar os alunos -> origem: base de dados
+$alunoCont = new AlunoController();
+$alunos = $alunoCont->listar();
+//print_r($alunos);
 
-$conn = Connection::getConnection();
-print_r($conn);
-
+//Inclui o cabeçalho da página
+require_once(__DIR__ . "/../include/header.php");
 ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Alunos</title>
-</head>
-<body>
+
+<h3>Listagem de alunos</h3>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Estrangeiro</th>
+        <th>Curso</th>
+    </tr>
+
+    <?php foreach($alunos as $a): ?>
+        <tr>
+            <td><?= $a->getId() ?></td>
+            <td><?= $a->getNome() ?></td>
+            <td><?= $a->getIdade() ?></td>
+            <td><?= $a->getEstrangeiroDesc() ?></td>
+            <td><?= $a->getCurso()->getId() ?></td>
+        </tr>
+    <?php endforeach; ?>
     
-</body>
-</html>
+
+</table>
+
+
+
+
+<?php
+//Inclui o rodapé da página
+require_once(__DIR__ . "/../include/footer.php");
+?>
+
+    
