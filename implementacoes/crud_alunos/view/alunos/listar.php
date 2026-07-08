@@ -17,6 +17,8 @@ require_once(__DIR__ . "/../include/header.php");
 
 <h3>Listagem de alunos</h3>
 
+<a href="inserir.php">Inserir</a>
+
 <table>
     <tr>
         <th>ID</th>
@@ -32,7 +34,7 @@ require_once(__DIR__ . "/../include/header.php");
             <td><?= $a->getNome() ?></td>
             <td><?= $a->getIdade() ?></td>
             <td><?= $a->getEstrangeiroDesc() ?></td>
-            <td><?= $a->getCurso()->getId() ?></td>
+            <td><?= $a->getCurso() ?></td>
         </tr>
     <?php endforeach; ?>
     

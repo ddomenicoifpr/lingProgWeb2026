@@ -6,7 +6,9 @@ require_once(__DIR__ . "/../model/Aluno.php");
 class AlunoDAO {
 
     public function list() {
-        $sql = "SELECT * FROM alunos";
+        $sql = "SELECT a.*, c.nome nome_curso, c.turno turno_curso 
+                FROM alunos a
+                JOIN cursos c ON (c.id = a.id_curso)";
         
         $conn = Connection::getConnection();
         $stm = $conn->prepare($sql);
@@ -27,6 +29,8 @@ class AlunoDAO {
             
             $curso = new Curso();
             $curso->setId($d["id_curso"]);
+            $curso->setNome($d["nome_curso"]);
+            $curso->setTurno($d["turno_curso"]);
             $aluno->setCurso($curso);
 
             array_push($alunos, $aluno);

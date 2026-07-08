@@ -37,6 +37,21 @@ class Curso {
         return $this->turno;
     }
 
+    public function getTurnoDesc() {
+        if($this->turno == "M")
+            return "Matutino";
+        else if($this->turno == "V")
+            return "Vespertino";
+        else if($this->turno == "N")
+            return "Noturno";
+
+        return "";
+    }
+
+    public function __toString() {
+        return $this->nome . " (" . $this->getTurnoDesc() . ")";
+    }
+
     public function setTurno(?string $turno): self
     {
         $this->turno = $turno;
