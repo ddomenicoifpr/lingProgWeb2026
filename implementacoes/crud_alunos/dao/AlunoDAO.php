@@ -32,7 +32,27 @@ class AlunoDAO {
             $stm->execute();
             return "";
         } catch(PDOException $e) {
-            return "Erro ao salvar o aluno. Tente novamente.";
+            $erro = "Erro ao salvar o aluno. Tente novamente.";
+            if(AMB_DEV)
+                $erro .= "<br>" . $e->getMessage();  
+            return $erro;
+        }
+    }
+
+    public function excluir(int $id) {
+        try {
+            $sql = "DELETE FROM alunos WHERE id = ?";
+            
+            $conn = Connection::getConnection();
+            $stm = $conn->prepare($sql);
+            $stm->execute([$id]);
+            return "";
+
+        } catch(PDOException $e) {
+            $erro = "Erro ao excluir o aluno. Tente novamente.";
+            if(AMB_DEV)
+                $erro .= "<br>" . $e->getMessage();  
+            return $erro;
         }
     }
 

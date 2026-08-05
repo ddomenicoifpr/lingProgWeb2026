@@ -5,6 +5,7 @@ require_once(__DIR__ . "/../../model/Curso.php");
 require_once(__DIR__ . "/../../controller/AlunoController.php");
 
 $msgErro = "";
+$aluno = NULL;
 
 //Verificação: formulário já foi submetido?
 if(isset($_POST['nome'])) {

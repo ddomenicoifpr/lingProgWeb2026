@@ -26,6 +26,8 @@ require_once(__DIR__ . "/../include/header.php");
         <th>Idade</th>
         <th>Estrangeiro</th>
         <th>Curso</th>
+        <th></th>
+        <th></th>
     </tr>
 
     <?php foreach($alunos as $a): ?>
@@ -35,6 +37,16 @@ require_once(__DIR__ . "/../include/header.php");
             <td><?= $a->getIdade() ?></td>
             <td><?= $a->getEstrangeiroDesc() ?></td>
             <td><?= $a->getCurso() ?></td>
+            <td>
+                <a href="alterar.php">
+                    <img src="../../img/btn_editar.png" alt="">
+                </a>    
+            </td>
+            <td>
+                <a href="excluir.php?id=<?= $a->getId() ?>">
+                    <img src="../../img/btn_excluir.png" alt="">
+                </a>
+            </td>
         </tr>
     <?php endforeach; ?>
     

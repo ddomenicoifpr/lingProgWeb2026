@@ -16,21 +16,25 @@ require_once(__DIR__ . "/../include/header.php");
     <div>
         <label for="txtNome">Nome: </label>
         <input type="text" id="txtNome" name="nome" 
-            placeholder="Informe o nome">
+            placeholder="Informe o nome"
+            value="<?= $aluno ? $aluno->getNome() : '' ?>">
     </div>
 
     <div>
         <label for="txtIdade">Idade: </label>
         <input type="number" id="txtIdade" name="idade" 
-            placeholder="Informe a idade">
+            placeholder="Informe a idade"
+            value="<?= $aluno ? $aluno->getIdade() : '' ?>">
     </div>
 
     <div>
         <label for="selEstrang">Estrangeiro: </label>
         <select name="estrangeiro" id="selEstrang">
             <option value="">----Selecione-----</option>
-            <option value="S">Sim</option>
-            <option value="N">Não</option>
+            <option value="S" <?= $aluno && $aluno->getEstrangeiro() == 'S' ? 'selected' : '' ?> >
+                Sim</option>
+            <option value="N" <?= $aluno && $aluno->getEstrangeiro() == 'N' ? 'selected' : '' ?> >
+                Não</option>
         </select>
     </div>
 
@@ -41,7 +45,13 @@ require_once(__DIR__ . "/../include/header.php");
 
             <!-- Cursos criados de forma dinâmica -->
             <?php foreach($cursos as $c): ?>
-                <option value="<?= $c->getId() ?>"><?= $c ?></option>        
+                <option value="<?= $c->getId() ?>"
+                    <?php 
+                        if($aluno && $aluno->getCurso()->getId() == $c->getId())
+                            echo "selected";
+                    ?>
+                >
+                <?= $c ?></option>        
             <?php endforeach; ?>    
 
         </select>
