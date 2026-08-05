@@ -42,8 +42,6 @@ require_once(__DIR__ . "/../include/header.php");
 </table>
 
 
-
-
 <?php
 //Inclui o rodapé da página
 require_once(__DIR__ . "/../include/footer.php");

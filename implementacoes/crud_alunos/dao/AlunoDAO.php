@@ -18,6 +18,24 @@ class AlunoDAO {
         return $this->map($dados);
     }
 
+    public function insert(Aluno $aluno) {
+        try {
+            $sql = "INSERT INTO alunos (nome, idade, estrangeiro, id_curso)
+                    VALUES (:nome, :idade, :estrang, :id_curso)";
+
+            $conn = Connection::getConnection();
+            $stm = $conn->prepare($sql);
+            $stm->bindValue("nome", $aluno->getNome());
+            $stm->bindValue("idade", $aluno->getIdade());
+            $stm->bindValue("estrang", $aluno->getEstrangeiro());
+            $stm->bindValue("id_curso", $aluno->getCurso()->getId());
+            $stm->execute();
+            return "";
+        } catch(PDOException $e) {
+            return "Erro ao salvar o aluno. Tente novamente.";
+        }
+    }
+
     private function map(array $dados) {
         $alunos = array();
         foreach($dados as $d) {

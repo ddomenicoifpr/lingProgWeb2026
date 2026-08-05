@@ -52,6 +52,10 @@ require_once(__DIR__ . "/../include/header.php");
     </div>
 </form>
 
+<div style="color: red;">
+    <?= $msgErro ?>
+</div>
+
 <a href="listar.php">Voltar</a>
 
 <?php
