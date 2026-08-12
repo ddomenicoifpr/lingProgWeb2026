@@ -38,12 +38,13 @@ require_once(__DIR__ . "/../include/header.php");
             <td><?= $a->getEstrangeiroDesc() ?></td>
             <td><?= $a->getCurso() ?></td>
             <td>
-                <a href="alterar.php">
+                <a href="alterar.php?id=<?= $a->getId() ?>">
                     <img src="../../img/btn_editar.png" alt="">
                 </a>    
             </td>
             <td>
-                <a href="excluir.php?id=<?= $a->getId() ?>">
+                <a href="excluir.php?id=<?= $a->getId() ?>"
+                    onclick="return confirm('Cofirma a exclusão?');" >
                     <img src="../../img/btn_excluir.png" alt="">
                 </a>
             </td>
