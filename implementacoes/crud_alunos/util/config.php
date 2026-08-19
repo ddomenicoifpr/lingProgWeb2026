@@ -12,3 +12,6 @@ define("DB_PASSWORD", "root");
 
 //Configuração do ambiente
 define("AMB_DEV", true);
+
+//Configuração de acesso
+define("BASE_URL", "/crud_alunos");

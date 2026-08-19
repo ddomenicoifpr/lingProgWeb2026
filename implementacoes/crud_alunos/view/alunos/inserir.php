@@ -17,6 +17,7 @@ if(isset($_POST['nome'])) {
 
     //2- Criar um objeto Aluno para persistí-lo
     $aluno = new Aluno();
+    $aluno->setId(0);
     $aluno->setNome($nome);
     $aluno->setIdade($idade);
     $aluno->setEstrangeiro($estrang);

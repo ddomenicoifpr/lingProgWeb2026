@@ -13,13 +13,15 @@ $alunos = $alunoCont->listar();
 
 //Inclui o cabeçalho da página
 require_once(__DIR__ . "/../include/header.php");
+
+require_once(__DIR__ . "/../include/menu.php");
 ?>
 
 <h3>Listagem de alunos</h3>
 
-<a href="inserir.php">Inserir</a>
+<a href="inserir.php" class="btn btn-primary">Inserir</a>
 
-<table>
+<table class="table table-striped mt-3">
     <tr>
         <th>ID</th>
         <th>Nome</th>
