@@ -1,6 +1,8 @@
 <?php
 #Página com o formulário de login
 
+require_once(__DIR__ . "/../../controller/LoginController.php");
+
 $msgErro = "";
 $login = "";
 $senha = "";
@@ -10,8 +12,9 @@ if(isset($_POST['login'])) {
     $login = trim($_POST['login']) ? trim($_POST['login']) : NULL;
     $senha = trim($_POST['senha']) ? trim($_POST['senha']) : NULL;
 
-    //TODO - Proceder o login
-    $erros = array("Erro ao realizar o login!");
+    //Proceder o login
+    $loginCont = new LoginController();
+    $erros = $loginCont->logar($login, $senha);
 
     if(! $erros) {
         //Deu certo o login
