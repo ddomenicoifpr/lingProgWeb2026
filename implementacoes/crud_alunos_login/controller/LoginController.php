@@ -22,8 +22,8 @@ class LoginController {
             $usuario = $this->usuarioDao->findByLoginSenha($login, $senha);
 
             if($usuario) {
-                //TODO - Armazenar na sessão que o usuário efetuou o login
-
+                //Armazenar na sessão que o usuário efetuou o login
+                $this->loginService->salvarUsuarioSessao($usuario);
                 
             } else 
                array_push($erros, "Login ou senha inválidos!"); 

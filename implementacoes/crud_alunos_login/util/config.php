@@ -15,3 +15,7 @@ define("AMB_DEV", true);
 
 //Configuração de acesso
 define("BASE_URL", "/crud_alunos_login");
+
+//Configurações de sessão
+define("SESSAO_USUARIO_ID", "sessaoUsuId");
+define("SESSAO_USUARIO_NOME", "sessaoUsuNome");
