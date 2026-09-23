@@ -1,5 +1,10 @@
 <?php
 require_once(__DIR__ . "/../../util/config.php");
+require_once(__DIR__ . "/../../controller/LoginController.php");
+
+$loginCont = new LoginController();
+$nomeUsuario = $loginCont->getNomeUsuarioLogado();
+
 ?>
 
 <nav class="navbar navbar-expand-md bg-warning px-3">
@@ -26,8 +31,13 @@ require_once(__DIR__ . "/../../util/config.php");
                     <a class="dropdown-item" href="#">Turmas</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Sobre</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#"
+                    id="navDropDown2" data-bs-toggle="dropdown"><?= $nomeUsuario ?></a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="<?= BASE_URL ?>/view/login/sair.php">
+                        Sair</a>                    
+                </div>
             </li>
         </ul>
         

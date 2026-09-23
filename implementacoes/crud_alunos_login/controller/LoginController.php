@@ -33,6 +33,16 @@ class LoginController {
         return $erros;
     }
 
+    public function usuarioEstaLogado(): bool {
+        return $this->loginService->usuarioEstaLogado();
+    }
 
+    public function deslogar() {
+        $this->loginService->encerrarSessao();
+    }
 
+    public function getNomeUsuarioLogado(): string {
+        return $this->loginService->getNomeUsuarioLogado();
+    }
+    
 }

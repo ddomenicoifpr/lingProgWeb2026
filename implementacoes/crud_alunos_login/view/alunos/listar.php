@@ -4,6 +4,8 @@
 //$conn = Connection::getConnection();
 //print_r($conn);
 
+require_once(__DIR__ . "/../login/verifica.php");
+
 require_once(__DIR__ . "/../../controller/AlunoController.php");
 
 //Buscar os alunos -> origem: base de dados

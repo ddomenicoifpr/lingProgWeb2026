@@ -1,5 +1,7 @@
 <?php
 
+require_once(__DIR__ . "/../login/verifica.php");
+
 require_once(__DIR__ . "/../../model/Aluno.php");
 require_once(__DIR__ . "/../../model/Curso.php");
 require_once(__DIR__ . "/../../controller/AlunoController.php");

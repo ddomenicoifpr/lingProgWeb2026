@@ -2,9 +2,10 @@
 require_once(__DIR__ . "/util/config.php");
 
 //Código de teste de usuário logado
-session_start();
-echo $_SESSION[SESSAO_USUARIO_NOME];
+//session_start();
+//echo $_SESSION[SESSAO_USUARIO_NOME];
 
+require_once(__DIR__ . "/view/login/verifica.php");
 
 require_once(__DIR__ . "/view/include/header.php");
 require_once(__DIR__ . "/view/include/menu.php");
