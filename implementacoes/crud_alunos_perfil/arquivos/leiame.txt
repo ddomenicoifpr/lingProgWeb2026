@@ -1,0 +1,1 @@
+Neste diretórios, devem estar os arquivos que foram enviados pela aplicação web para o servidor.

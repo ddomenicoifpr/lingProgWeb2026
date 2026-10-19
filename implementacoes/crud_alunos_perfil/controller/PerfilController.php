@@ -16,6 +16,24 @@ class PerfilController {
         $this->arquivoService = new ArquivoService();
     }
 
-}
+    public function alterar(array $fotoPerfil) {
+        //1- Validar o arquivo
+        $erros = $this->perfilService->validarPerfil($fotoPerfil);
+        if($erros) {
+            return $erros;
+        }
 
-new PerfilController();
+
+        //2- Salvar o arquivo em um diretório
+        $this->arquivoService->salvarArquivo($fotoPerfil);
+
+
+        //3- Atulizar o registro do usuário no banco de dados (caminho)
+
+
+        return array();
+    }
+
+
+
+}

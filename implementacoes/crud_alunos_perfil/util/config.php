@@ -19,3 +19,6 @@ define("BASE_URL", "/crud_alunos_perfil");
 //Configurações de sessão
 define("SESSAO_USUARIO_ID", "sessaoUsuId");
 define("SESSAO_USUARIO_NOME", "sessaoUsuNome");
+
+//Configuração de arquivos
+define("DIR_ARQUIVOS", __DIR__ . "/../arquivos");

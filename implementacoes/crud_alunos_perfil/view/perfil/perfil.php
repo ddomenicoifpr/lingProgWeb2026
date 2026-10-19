@@ -13,7 +13,19 @@ if(!$usuario) {
 
 $msgErro = "";
 
-//TODO - Receber os dados do formulário
+//Receber os dados do formulário
+if(isset($_FILES["foto"])) {
+    
+    $fotoPerfil = $_FILES["foto"];
+
+    $perfiCont = new PerfilController();
+    $erros = $perfiCont->alterar($fotoPerfil);
+
+    $msgErro = implode("<br>", $erros);
+}
+
+
+
 
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
@@ -48,7 +60,8 @@ require_once(__DIR__ . "/../include/menu.php");
             
             <div class="mb-3">
                 <label class="form-label" for="txtFoto">Foto de perfil: </label>
-                <input class="form-control" type="file" id="txtFoto" name="foto" />
+                <input class="form-control" type="file" id="txtFoto" name="foto"
+                     />
             </div>
 
             <div class="mt-3">
