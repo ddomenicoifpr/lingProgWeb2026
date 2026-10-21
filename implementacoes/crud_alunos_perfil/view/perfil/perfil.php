@@ -13,17 +13,26 @@ if(!$usuario) {
 
 $msgErro = "";
 
+//Atualizar a variável com base no parâmetro sucesso (igual a 1)
+$exibeSucesso = false;
+if(isset($_GET["sucesso"]) && $_GET["sucesso"] == 1)
+    $exibeSucesso = true;
+
 //Receber os dados do formulário
 if(isset($_FILES["foto"])) {
     
     $fotoPerfil = $_FILES["foto"];
 
     $perfiCont = new PerfilController();
-    $erros = $perfiCont->alterar($fotoPerfil);
+    $erros = $perfiCont->alterar($usuario, $fotoPerfil);
 
-    $msgErro = implode("<br>", $erros);
+    if($erros)
+        $msgErro = implode("<br>", $erros);
+    else {
+        header("location: perfil.php?sucesso=1");
+        exit;
+    }
 }
-
 
 
 
@@ -48,7 +57,26 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <div class="col-12 mb-2">
         <div class="fw-bold">Foto:</div>
+        <?php if($usuario->getImgPerfil()): ?>
+            <?php if(file_exists(DIR_ARQUIVOS . "/" . $usuario->getImgPerfil())): ?>            
+                <div>
+                    <img src="<?= URL_ARQUIVOS . "/" . $usuario->getImgPerfil() ?>" 
+                        alt="Imagem de perfil"
+                        style="height: 250px; width: auto;" >            
+                </div>
+            <?php else: ?>
+                <span>Arquivo não encontrado: <?= $usuario->getImgPerfil() ?></span>
+            <?php endif; ?>    
+        <?php else: ?>
+            <span>Sem imagem de perfil.</span>
+        <?php endif; ?>
     </div>
+
+    <?php if($exibeSucesso): ?>
+        <div class="col-12 mb-2">
+            <div class="alert alert-success">Foto atualizada com sucesso!</div>        
+        </div>
+    <?php endif; ?>
 
 </div>
     
@@ -60,7 +88,8 @@ require_once(__DIR__ . "/../include/menu.php");
             
             <div class="mb-3">
                 <label class="form-label" for="txtFoto">Foto de perfil: </label>
-                <input class="form-control" type="file" id="txtFoto" name="foto"
+                <input class="form-control" type="file" 
+                    id="txtFoto" name="foto"
                      />
             </div>
 

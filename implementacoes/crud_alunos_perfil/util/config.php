@@ -22,3 +22,4 @@ define("SESSAO_USUARIO_NOME", "sessaoUsuNome");
 
 //Configuração de arquivos
 define("DIR_ARQUIVOS", __DIR__ . "/../arquivos");
+define("URL_ARQUIVOS", BASE_URL . "/arquivos");
