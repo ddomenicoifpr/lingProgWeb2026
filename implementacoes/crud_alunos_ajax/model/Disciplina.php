@@ -3,7 +3,7 @@
 
 require_once(__DIR__ . "/Curso.php");
 
-class Disciplina {
+class Disciplina implements JsonSerializable {
 
     private int $id;
     private ?string $codigo;
@@ -17,6 +17,15 @@ class Disciplina {
 
     public function __toString() {
         return $this->codigo . " - " . $this->nome;
+    }
+
+    public function jsonSerialize(): array {
+        return [
+            "id" => $this->id,
+            "codigo" => $this->codigo,
+            "nome" => $this->nome,
+            "idCurso" => $this->curso->getId() 
+        ];
     }
 
     //GETs e SETs
