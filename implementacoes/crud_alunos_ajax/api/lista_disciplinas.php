@@ -13,6 +13,8 @@ if(isset($_GET["id_curso"]))
 $disciplinaCont = new DisciplinaController();
 $disciplinas = $disciplinaCont->listarPorCurso($idCurso);
 
+//sleep(3);
+
 echo json_encode($disciplinas, 
                 JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
