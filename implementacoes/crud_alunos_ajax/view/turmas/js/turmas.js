@@ -98,5 +98,22 @@ function salvarTurma() {
     var idDisc = selDisc.value;
     var ano    = inputAno.value;
 
-    alert(idDisc + " - " + ano);
+    var dados = new FormData();
+    dados.append("disciplina", idDisc);
+    dados.append("ano", ano);
+
+    const url = urlBase + "/api/salvar_turma.php";
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", url);
+
+    //Função executada quando a resposta chega
+    xhttp.onload = function() {
+        var resposta = xhttp.responseText;
+        alert(resposta);
+    }
+
+    //Envia a requisição
+    xhttp.send(dados);
+
 }

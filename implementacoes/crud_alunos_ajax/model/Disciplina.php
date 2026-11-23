@@ -5,7 +5,7 @@ require_once(__DIR__ . "/Curso.php");
 
 class Disciplina implements JsonSerializable {
 
-    private int $id;
+    private ?int $id;
     private ?string $codigo;
     private ?string $nome;
     private ?Curso $curso;
@@ -29,19 +29,6 @@ class Disciplina implements JsonSerializable {
     }
 
     //GETs e SETs
-    
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     public function getCodigo(): ?string
     {
@@ -75,6 +62,18 @@ class Disciplina implements JsonSerializable {
     public function setCurso(?Curso $curso): self
     {
         $this->curso = $curso;
+
+        return $this;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
 
         return $this;
     }
