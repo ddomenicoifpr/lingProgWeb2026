@@ -4,6 +4,7 @@ const urlBase =
 
 const selDisc  = document.querySelector("#selDisciplina");
 const inputAno = document.querySelector("#txtAno");
+const divMsgErro = document.getElementById("divMsgErro");
 
 listarDisciplinasAssinc();
 function listarDisciplinasAssinc() {
@@ -110,7 +111,12 @@ function salvarTurma() {
     //Função executada quando a resposta chega
     xhttp.onload = function() {
         var resposta = xhttp.responseText;
-        alert(resposta);
+        
+        if(resposta != "") {
+            divMsgErro.innerHTML = resposta;
+            divMsgErro.style.display = "block";
+        } else
+            window.location = "listar.php";
     }
 
     //Envia a requisição
